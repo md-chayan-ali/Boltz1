@@ -1,5 +1,5 @@
 <h1 align="center">Boltz-1:
-
+author=vijaya
 Democratizing Biomolecular Interaction Modeling
 </h1>
 
