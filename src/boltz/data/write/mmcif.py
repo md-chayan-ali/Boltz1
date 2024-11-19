@@ -55,7 +55,7 @@ def to_mmcif(structure: Structure) -> str:  # noqa: C901
 
     # Create entity objects
     entities_map = {}
-    for entity, sequence in sequences.items():
+    for k,(entity, sequence) in enumerate(sequences.items()):
         mol_type = entity_to_moltype[entity]
 
         if mol_type == const.chain_type_ids["PROTEIN"]:
@@ -69,11 +69,10 @@ def to_mmcif(structure: Structure) -> str:  # noqa: C901
             chem_comp = lambda x: ihm.RNAChemComp(id=x, code=x, code_canonical="N")  # noqa: E731
         elif len(sequence) > 1:
             alphabet = {}
-            chem_comp = lambda x: ihm.SaccharideChemComp(id=x)  # noqa: E731
+            chem_comp = lambda x: ihm.SaccharideChemComp(id=x,code_canonical=f"X{k}")  # noqa: E731
         else:
             alphabet = {}
-            chem_comp = lambda x: ihm.NonPolymerChemComp(id=x)  # noqa: E731
-
+            chem_comp = lambda x: ihm.NonPolymerChemComp(id=x,code_canonical=f"X{k}")  # noqa: E731
         seq = [
             alphabet[item] if item in alphabet else chem_comp(item) for item in sequence
         ]
