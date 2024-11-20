@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# Git
+.git/
+.gitignore
+.dockerignore
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+
+# Build artifacts
+build/
+dist/
+
+# Config files
+*.env
+
+# IDE system files
+*.swp
+.vscode/
+.idea/
+.DS_STORE
+
+# Logs and temporary files
+logs/
+*.log
+tmp/
+*.tmp
+*.bak
+
+# Exclude essential files
+!Dockerfile
+!LICENSE
+!README.md
