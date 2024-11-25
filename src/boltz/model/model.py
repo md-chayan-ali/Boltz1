@@ -262,6 +262,7 @@ class Boltz1(LightningModule):
         num_sampling_steps: Optional[int] = None,
         multiplicity_diffusion_train: int = 1,
         diffusion_samples: int = 1,
+        return_intermediate: bool = False,
     ) -> dict[str, Tensor]:
         dict_out = {}
 
@@ -363,8 +364,13 @@ class Boltz1(LightningModule):
                     multiplicity=diffusion_samples,
                 )
             )
+        if return_intermediate:
+            dict_out.update({"s": s, "z": z, "s_inputs": s_inputs,
+                             "relative_position_encoding": relative_position_encoding})
+
         if self.confidence_prediction and self.confidence_module.use_s_diffusion:
             dict_out.pop("diff_token_repr", None)
+
         return dict_out
 
     def get_true_coordinates(
