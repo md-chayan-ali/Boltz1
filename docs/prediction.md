@@ -6,6 +6,10 @@ Once you have installed `boltz`, you can start making predictions by simply runn
 
 where `<INPUT_PATH>` is a path to the input file or a directory. The input file can either be in fasta (enough for most use cases) or YAML  format (for more complex inputs). If you specify a directory, `boltz` will run predictions on each `.yaml` or `.fasta` file in the directory.
 
+The `screen` function allows you to predict interactions for multiple ligands, accepting a single `.sdf` file, a directory of `.sdf` files, or a `.smi` file with ligand IDs and SMILES strings separated by spaces or tabs. Proteins can be provided as `.pdb` or `.fasta` files (recommended). The `screen` function supports all arguments from `predict` and additionally allows specifying a precomputed MSA file (`.m3a`) with `--msa_path`. If no MSA is available, the `--use_msa_server` flag can generate it automatically. **Note**: Using `--use_msa_server` sends data to an external server, and confidentiality cannot be guaranteed.
+
+`boltz screen --protein <PROTEIN_PATH> --ligands <LIGANDS_PATH>`
+
 Before diving into more details about the input formats, here are the key differences in what they each support:
 
 | Feature  | Fasta              | YAML    |
@@ -131,14 +135,14 @@ The following options are available for the `predict` command:
 After running the model, the generated outputs are organized into the output directory following the structure below:
 ```
 out_dir/
-├── lightning_logs/                                            # Logs generated during training or evaluation
-├── predictions/                                               # Contains the model's predictions
-    ├── [input_file1]/
-        ├── [input_file1]_model_0.cif                          # The predicted structure in CIF format
+��������� lightning_logs/                                            # Logs generated during training or evaluation
+��������� predictions/                                               # Contains the model's predictions
+    ��������� [input_file1]/
+        ��������� [input_file1]_model_0.cif                          # The predicted structure in CIF format
         ...
-        └── [input_file1]_model_[diffusion_samples-1].cif      # The predicted structure in CIF format
-    └── [input_file2]/
+        ��������� [input_file1]_model_[diffusion_samples-1].cif      # The predicted structure in CIF format
+    ��������� [input_file2]/
         ...
-└── processed/                                                 # Processed data used during execution 
+��������� processed/                                                 # Processed data used during execution 
 ```
 The `predictions` folder contains a unique folder for each input file. The input folders contain diffusion_samples predictions saved in the output_format. The `processed` folder contains the processed input files that are used by the model during inference.
